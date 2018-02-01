@@ -9,16 +9,11 @@ import android.icu.text.IDNA;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -44,12 +39,6 @@ public class SelectorFragment extends Fragment {
     private Vector<Libro> vectorLibros;
 
     @Override
-    public void onResume() {
-        ((MainActivity) getActivity()).mostrarElementos(true);
-        super.onResume();
-    }
-
-    @Override
     public void onAttach(Context contexto) {
         super.onAttach(contexto);
         if (contexto instanceof Activity) {
@@ -61,43 +50,6 @@ public class SelectorFragment extends Fragment {
         }
 
 
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        MenuItem searchItem = menu.findItem(R.id.menu_buscar);
-        SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextChange(String query) {
-                adaptador.setBusqueda(query);
-                adaptador.notifyDataSetChanged();
-                return false;
-            }
-
-
-
-
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-        });
-
-
-        MenuItemCompat.setOnActionExpandListener(searchItem,new MenuItemCompat.OnActionExpandListener()
-
-        {
-            @Override public boolean onMenuItemActionCollapse (MenuItem item){
-                adaptador.setBusqueda("");
-                adaptador.notifyDataSetChanged();
-                return true;
-            }
-            @Override public boolean onMenuItemActionExpand (MenuItem item){
-                return true;
-            }
-        });
     }
 
     @Override

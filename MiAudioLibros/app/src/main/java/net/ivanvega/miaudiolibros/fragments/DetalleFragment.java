@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import net.ivanvega.miaudiolibros.InfoGlobal;
 import net.ivanvega.miaudiolibros.Libro;
-import net.ivanvega.miaudiolibros.MainActivity;
 import net.ivanvega.miaudiolibros.R;
 
 import java.io.IOException;
@@ -45,13 +44,13 @@ public class DetalleFragment extends Fragment
                 contenedor, false);
 
         Bundle args = getArguments();
-        if (args != null) {
-            int position = args.getInt(ARG_ID_LIBRO);
-            ponInfoLibro(position, vista);
-        } else {
-            ponInfoLibro(0, vista);
-        }
-        return vista;
+            if (args != null) {
+                int position = args.getInt(ARG_ID_LIBRO);
+                 ponInfoLibro(position, vista);
+            } else {
+                ponInfoLibro(0, vista);
+            }
+            return vista;
     }
 
     private void ponInfoLibro(int id, View vista) {
@@ -62,7 +61,7 @@ public class DetalleFragment extends Fragment
         ((ImageView) vista.findViewById(R.id.portada))
                 .setImageResource(libro.recursoImagen);
         vista.setOnTouchListener(this);
-        if (mediaPlayer != null) {
+        if (mediaPlayer != null){
             mediaPlayer.release();
         }
         mediaPlayer = new MediaPlayer();
@@ -73,7 +72,7 @@ public class DetalleFragment extends Fragment
             mediaPlayer.setDataSource(getActivity(), audio);
             mediaPlayer.prepareAsync();
         } catch (IOException e) {
-            Log.e("Audiolibros", "ERROR: No se puede reproducir " + audio, e);
+            Log.e("Audiolibros", "ERROR: No se puede reproducir "+audio,e);
         }
     }
 
@@ -88,8 +87,8 @@ public class DetalleFragment extends Fragment
         mediaPlayer.start();
         mediaController.setMediaPlayer(this);
         mediaController.setAnchorView(getView().findViewById(R.id.fragment_detalle));
-        mediaController.setEnabled(true);
-        mediaController.setPadding(0, 0, 0, 110);
+                mediaController.setEnabled(true);
+        mediaController.setPadding(0, 0, 0,110);
         mediaController.show();
     }
 
@@ -100,8 +99,7 @@ public class DetalleFragment extends Fragment
             mediaPlayer.stop();
             mediaPlayer.release();
         } catch (Exception e) {
-            Log.d("Audiolibros", "Error en mediaPlayer.stop()");
-        }
+            Log.d("Audiolibros", "Error en mediaPlayer.stop()"); }
         super.onStop();
     }
 
@@ -145,16 +143,8 @@ public class DetalleFragment extends Fragment
     }
 
     @Override
-    public void onResume() {
-        DetalleFragment detalleFragment = (DetalleFragment) getFragmentManager().findFragmentById(R.id.detalle_fragment);
-        if (detalleFragment == null) {
-            ((MainActivity) getActivity()).mostrarElementos(false);
-        }
-        super.onResume();
-    }
-
-    @Override
-    public int getBufferPercentage() {
+    public int getBufferPercentage()
+    {
         return 0;
     }
 

@@ -5,101 +5,136 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
+
+import java.io.File;
+
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    private Button btnllamar;
     private static final int SOLICITUD_PERMISO_CALL_PHONE = 1;
     private Intent intentLLamada;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       permiso();
+        intentLLamada = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "4451228560"));
+        Button btnLlamada = (Button) findViewById(R.id.btnpermiso1);
 
-    }
 
 
-    public void permiso(){
-        btnllamar = (Button)findViewById(R.id.btnpermiso1);
-        btnllamar.setOnClickListener(new View.OnClickListener() {
+
+        btnLlamada.setOnClickListener(new View.OnClickListener() { // hago clic en el botón
             @Override
-            public void onClick(View view) {
-
-                intentLLamada = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "4451228560"));
-                 ///PERMISO CONCENDIDO
-                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-                    startActivity(intentLLamada);
-                    Toast.makeText(MainActivity.this, "1 Permiso Concedido", Toast.LENGTH_SHORT).show();
-
-                } else {
-                    solicitarPermisoHacerLlamada();
-                }
+            public void onClick(View v) {
+                //solicitarPermisoHacerLlamada();
+                pedirHacerllamada();
 
             }
         });
+
+
+
+
+    }
+
+
+
+
+
+
+    public void pedirHacerllamada() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+
+            startActivity(intentLLamada);
+
+        } else {
+            explicarUsoPermiso();
+            //solicitarPermisoHacerLlamada();
+
+        }
+
+    }
+
+
+
+    private void explicarUsoPermiso() {
+
+        //Para ver si se marco no volver a preguntar
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CALL_PHONE)) {
+            alertDialogBasico();
+            solicitarPermisoHacerLlamada();
+        }
+
     }
 
     private void solicitarPermisoHacerLlamada() {
-        //Pedimos el permiso o los permisos con un cuadro de dialogo del sistema
-        solicitarPermisoHacerLlamada(Manifest.permission.CALL_PHONE, "Sin el permiso" +
-                        " no puede realizar llamadas.",
-                SOLICITUD_PERMISO_CALL_PHONE, this);
 
-        Toast.makeText(MainActivity.this, "Solicitando Permiso de LLamar", Toast.LENGTH_SHORT).show();
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.CALL_PHONE},
+                SOLICITUD_PERMISO_CALL_PHONE);
+
+
     }
 
-    public static void solicitarPermisoHacerLlamada(final String permiso, String justificacion,
-                                        final int requestCode, final Activity actividad) {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(actividad,
-                permiso)){
-            new AlertDialog.Builder(actividad)
-                    .setTitle("Solicitud de permiso")
-                    .setMessage(justificacion)
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            ActivityCompat.requestPermissions(actividad,
-                                    new String[]{permiso}, requestCode);
-                        }})
-                    .show();
-        } else {
-            ActivityCompat.requestPermissions(actividad,
-                    new String[]{permiso}, requestCode);
-        }
-    }
 
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == SOLICITUD_PERMISO_CALL_PHONE) {
 
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //Realizamos la accion
+
                 startActivity(intentLLamada);
-                Toast.makeText(MainActivity.this, "Permiso Concedido", Toast.LENGTH_SHORT).show();
-            } else {
-                //1-Seguimos el proceso de ejecucion sin esta accion: Esto lo recomienda Google
-                //2-Cancelamos el proceso actual
-                //3-Salimos de la aplicacion
-                Toast.makeText(MainActivity.this, "Permiso No Concedido", Toast.LENGTH_SHORT).show();
+
             }
         }
     }
 
 
+
+    public void alertDialogBasico() {
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+        builder.setMessage("DEBES CONCEDER EL PERMISO");
+
+
+        builder.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+
+
+        builder.show();
+
+    }
 
 
 }
