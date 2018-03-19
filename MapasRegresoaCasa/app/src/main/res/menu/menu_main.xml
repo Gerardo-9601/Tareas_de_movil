@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.example.mand.mapasdegoogle.MainActivity">
+
+    <item
+        android:id="@+id/action_add"
+        android:icon="@mipmap/mapa"
+        android:title="agregar"
+        android:showAsAction="always"
+        tools:ignore="AppCompatResource" />
+
+
+</menu>
