@@ -1,0 +1,78 @@
+
+body{
+
+background-color: cyan;
+font-size: 15px;
+
+}
+
+
+.conte
+{
+	background-image: url(../images/fondo.jpg);
+	background-position: center;
+	margin-left: 650px;
+	margin-top: 300px;
+	width: 400px;
+	height: 200px;
+	position: left;
+	padding: 20px;
+}
+
+#txtUsuario
+{
+	
+	width: 400px;
+	height: 40px;
+	border-width:1px;
+	border-style:solid;
+	border-color:#000;
+	border-bottom:8px solid purple;
+	font-size: 15px;
+}
+#email
+{
+	
+	
+	width: 400px;
+	height: 40px;
+	border-width:1px;
+	border-style:solid;
+	border-color:#000;
+	border-bottom:8px solid purple;
+}
+input:hover{
+	background-color: cyan;
+}
+button:hover{
+	background-color: black;
+}
+#contra
+{
+	width: 400px;
+	height: 40px;
+	border-width:1px;
+	border-style:solid;
+	border-color:#000;
+	border-bottom:8px solid purple;
+}
+.btn
+{
+	width: 400px;
+	height: 40px;
+	background-color: purple;
+	color: #fff;
+	border-style:solid;
+	border-color:purple;
+	font-size: 15px;
+}
+
+div 
+{
+	margin: .4em 1;
+}
+div label 
+{
+	width: 20%;
+	float: left;
+}

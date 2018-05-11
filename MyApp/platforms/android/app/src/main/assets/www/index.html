@@ -1,0 +1,92 @@
+<html>
+<head>
+    <!-- Gerardo Pantoja
+    Customize this policy to fit your own app's needs. For more guidance, see:
+        https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+    Some notes:
+        * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+        * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+        * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+            * Enable inline JS: add 'unsafe-inline' to default-src
+    -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="jquerymobile/jquery.mobile.theme-1.4.5.css">
+    <link rel="stylesheet" type="text/css" href="jquerymobile/jquery.mobile-1.4.5.css">
+    <script type='text/javascript' src="jquerymobile/jquery-3.2.1.js"></script>
+    <script type='text/javascript' src="jquerymobile/jquery.mobile-1.4.5.js"></script>
+    <script type='text/javascript' src="jquerymobile/jquery.mobile-1.4.5.js"></script>
+
+
+    <title>WebApp</title>
+</head>
+<body>
+
+<!-- cabecera-->
+<div>
+    <div class="alert alert-primary">
+        <center>Foto</center>
+    </div>
+
+    <div>
+        <center>
+            <img id='img' src="img/logo.png" class="img-fluid" alt="Responsive image">
+        </center>
+        <Button id='btntomarfoto' data-icon="gear" class="ui-btn-right btn btn-success">Tomar</Button>
+        <span id='msg'></span>
+    </div>
+
+
+
+</div>
+
+<div>
+    <div class="alert alert-primary">
+        <center>Informacion de la Red</center>
+        <Button id='wifi' data-icon="gear" class="btn btn-success">Info</Button>
+    </div>
+
+</div>
+
+
+<div>
+    <div class="alert alert-primary">
+        <center>Estado de Bateria</center>
+        <Button id='btnestado' data-icon="gear" class="btn btn-success">Info</Button>
+    </div>
+
+</div>
+
+
+<div>
+    <div class="alert alert-primary">
+        <center>Informacion Dispositivo</center>
+        <Button id='btndevice' data-icon="gear" class="btn btn-success">Info</Button>
+    </div>
+
+</div>
+
+
+
+
+
+<style type="text/css">
+          body{
+          	background: white;
+          }
+
+        </style>
+
+
+
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="cordova_plugins.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+</body>
+</html>
